@@ -8,3 +8,4 @@ print("Python")
 =======
 print("DICT")
 >>>>>>> b48bead (Update test.py)
+# Проверка коммита
