@@ -82,3 +82,4 @@ while True:
             print("Invalid number. Try again.")
     else:
         print("Invalid input. Enter a number or 'exit'.")
+        print("You've reached the end of the program.")
