@@ -48,3 +48,8 @@ while True:
         print_board()
         print(f"Игрок {winner} победил! 🎉")
         break
+
+        if all(cell != " " for row in board for cell in row):
+            print_board()
+            print("Ничья! 🤝")
+            break
