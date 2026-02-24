@@ -48,3 +48,19 @@ while True:
         print(f"Well done. The computer chose {computer_choice} and failed")
     else:
         print(f"Sorry, but the computer chose {computer_choice}")
+name = input("Enter your name: ")
+print(f"Hello, {name}")
+
+rating = 0
+
+try:
+    with open("rating.txt", "r") as file:
+        for line in file:
+            user, score = line.strip().split()
+            if user == name:
+                rating = int(score)
+except FileNotFoundError:
+    pass
+if user_choice == "!rating":
+    print(f"Your rating: {rating}")
+    continue
