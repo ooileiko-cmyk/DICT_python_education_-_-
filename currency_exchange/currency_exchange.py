@@ -25,7 +25,20 @@ if name == "main":
             total = round(mycoin * rate, 2)
             print(f"Вы получите {total} {currency} от продажи {mycoin} mycoins.")
 
+import requests
 
-    if name == "main":
-        print("=== Этап 2 ===")
-        stage2()
+
+def stage3():
+    base_currency = input("Введите код вашей валюты (например, USD, EUR): ").upper()
+    url = f"http://www.floatrates.com/daily/{base_currency.lower()}.json"
+    response = requests.get(url)
+    data = response.json()
+
+    for target in ["usd", "eur"]:
+        if target in data:
+            print(f"Курс {target.upper()} к {base_currency}: {data[target]['rate']}")
+
+
+if name == "main":
+    print("=== Этап 3 ===")
+    stage3()
