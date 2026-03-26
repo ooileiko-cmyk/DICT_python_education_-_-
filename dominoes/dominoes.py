@@ -32,3 +32,24 @@ def distribute(dominoes):
 
             snake = [max_double]
             return stock, computer, player, snake, status
+
+        def print_state(stock, computer, player, snake, status):
+            print("=" * 70)
+            print(f"Stock size: {len(stock)}")
+            print(f"Computer pieces: {len(computer)}")
+
+            if len(snake) <= 6:
+                print(*snake, sep="")
+            else:
+                print(*snake[:3], sep="", end="")
+                print("...", end="")
+                print(*snake[-3:], sep="")
+
+            print("Your pieces:")
+            for i, p in enumerate(player):
+                print(f"{i + 1}:{p}")
+
+            if status == "player":
+                print("Status: It's your turn to make a move. Enter your command.")
+            else:
+                print("Status: Computer is about to make a move. Press Enter to continue...")
