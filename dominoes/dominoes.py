@@ -77,3 +77,83 @@ def distribute(dominoes):
                             snake.append(piece)
                         else:
                             snake.append(piece[::-1])
+
+
+def computer_move(computer, snake):
+    counter = Counter([n for p in computer + snake for n in p])
+
+    scored = []
+    for i, p in enumerate(computer):
+        score = counter[p[0]] + counter[p[1]]
+        scored.append((score, i, p))
+
+    scored.sort(reverse=True)
+
+    for _, i, p in scored:
+        if can_place(p, snake, "left"):
+            return computer.pop(i), "left"
+        if can_place(p, snake, "right"):
+            return computer.pop(i), "right"
+
+    return None, None
+
+
+def main():
+    dominoes = create_domino_set()
+    stock, computer, player, snake, status = distribute(dominoes)
+
+    while True:
+        print_state(stock, computer, player, snake, status)
+
+        if len(player) == 0:
+            print("Status: The game is over. You won!")
+            break
+        if len(computer) == 0:
+            print("Status: The game is over. The computer won!")
+            break
+
+        if status == "player":
+            try:
+                move = int(input())
+            except:
+                print("Invalid input. Please try again.")
+                continue
+
+            if move == 0:
+                if stock:
+                    player.append(stock.pop())
+                status = "computer"
+                continue
+
+            idx = abs(move) - 1
+
+            if idx < 0 or idx >= len(player):
+                print("Invalid input. Please try again.")
+                continue
+
+            piece = player.pop(idx)
+            side = "left" if move < 0 else "right"
+
+            if not can_place(piece, snake, side):
+                print("Illegal move. Please try again.")
+                player.insert(idx, piece)
+                continue
+
+            place_piece(piece, snake, side)
+            status = "computer"
+
+        else:
+            input()
+            piece, side = computer_move(computer, snake)
+
+            if piece:
+                place_piece(piece, snake, side)
+            else:
+                if stock:
+                    computer.append(stock.pop())
+
+            status = "player"
+
+
+if name == "main":
+    main()
