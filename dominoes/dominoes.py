@@ -53,3 +53,27 @@ def distribute(dominoes):
                 print("Status: It's your turn to make a move. Enter your command.")
             else:
                 print("Status: Computer is about to make a move. Press Enter to continue...")
+
+                def can_place(piece, snake, side):
+                    left = snake[0][0]
+                    right = snake[-1][1]
+
+                    if side == "left":
+                        return piece[1] == left or piece[0] == left
+                    else:
+                        return piece[0] == right or piece[1] == right
+
+                def place_piece(piece, snake, side):
+                    left = snake[0][0]
+                    right = snake[-1][1]
+
+                    if side == "left":
+                        if piece[0] == left:
+                            snake.insert(0, piece)
+                        else:
+                            snake.insert(0, piece[::-1])
+                    else:
+                        if piece[1] == right:
+                            snake.append(piece)
+                        else:
+                            snake.append(piece[::-1])
